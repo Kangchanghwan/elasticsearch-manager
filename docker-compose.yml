@@ -1,0 +1,56 @@
+version: '3.2'
+
+services:
+  elasticsearch:
+    image: 025229172592.dkr.ecr.ap-northeast-2.amazonaws.com/elasticsearch-s3
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - node.name=elasticsearch
+      - ELASTIC_PASSWORD=
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - xpack.security.http.ssl.enabled=false
+      - xpack.security.enabled=true
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - 9200:9200
+    restart: always
+    networks:
+      - ekz
+
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    environment:
+      STORAGE_TYPE: elasticsearch
+      ES_HOSTS: http://elasticsearch:9200
+      ES_USERNAME: elastic
+      ES_PASSWORD: dev2log1!
+    ports:
+      - 9411:9411
+    depends_on:
+      - elasticsearch
+    restart: always
+    networks:
+      - ekz
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.10.0
+    container_name: kibana
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      ELASTICSEARCH_USERNAME: elastic
+      ELASTICSEARCH_PASSWORD: dev2log1!
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch
+    restart: always
+    networks:
+      - ekz
+
+networks:
+  ekz:
