@@ -28,7 +28,7 @@ services:
       STORAGE_TYPE: elasticsearch
       ES_HOSTS: http://elasticsearch:9200
       ES_USERNAME: elastic
-      ES_PASSWORD: dev2log1!
+      ES_PASSWORD: !
     ports:
       - 9411:9411
     depends_on:
@@ -43,7 +43,7 @@ services:
     environment:
       ELASTICSEARCH_URL: http://elasticsearch:9200
       ELASTICSEARCH_USERNAME: elastic
-      ELASTICSEARCH_PASSWORD: dev2log1!
+      ELASTICSEARCH_PASSWORD: !
     ports:
       - 5601:5601
     depends_on:
