@@ -8,7 +8,7 @@ export S3_BUCKET_NAME="wingchat-public-s3-dev"
 export S3_BASE_PATH="back-up"
 
 export ELASTICSEARCH_USER="elastic"
-export ELASTICSEARCH_PASSWORD="dev2log1!"
+export ELASTICSEARCH_PASSWORD="-"
 export ELASTICSEARCH_URL="http://localhost:9200"
 export KIBANA_URL="http://localhost:5601"
 
